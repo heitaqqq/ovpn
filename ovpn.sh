@@ -445,7 +445,7 @@ else
 	echo "   3) Remove OpenVPN"
 	echo "   4) Exit"
 	read -p "Option: " option
-	until [[ "$option" 1 ]]; do
+	until [[ "$option" = 1 ]]; do
 		echo "$option: invalid selection."
 		read -p "Option: " option
 	done
