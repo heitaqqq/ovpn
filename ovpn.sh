@@ -116,10 +116,10 @@ if [[ ! -e /etc/openvpn/server/server.conf ]]; then
 		echo
 		echo "Which IPv4 address should be used?"
 		ip -4 addr | grep inet | grep -vE '127(\.[0-9]{1,3}){3}' | cut -d '/' -f 1 | grep -oE '[0-9]{1,3}(\.[0-9]{1,3}){3}' | nl -s ') '
-		read -p "IPv4 address [1]: " ip_number
+		read -p "IPv4 address [1]: " 1
 		until [[ -z "$ip_number" || "$ip_number" =~ ^[0-9]+$ && "$ip_number" -le "$number_of_ip" ]]; do
 			echo "$ip_number: invalid selection."
-			read -p "IPv4 address [1]: " ip_number
+			read -p "IPv4 address [1]: " 1
 		done
 		[[ -z "$ip_number" ]] && ip_number="1"
 		ip=$(ip -4 addr | grep inet | grep -vE '127(\.[0-9]{1,3}){3}' | cut -d '/' -f 1 | grep -oE '[0-9]{1,3}(\.[0-9]{1,3}){3}' | sed -n "$ip_number"p)
@@ -445,7 +445,7 @@ else
 	echo "   3) Remove OpenVPN"
 	echo "   4) Exit"
 	read -p "Option: " option
-	until [[ "$option" = 1 ]]; do
+	until [[ "$option" =~ ^[1-4]$ ]]; do
 		echo "$option: invalid selection."
 		read -p "Option: " option
 	done
